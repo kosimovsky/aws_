@@ -1,0 +1,12 @@
+[test_ubuntu]
+ec2-18-197-163-6.eu-central-1.compute.amazonaws.com
+
+[test_rh]
+ec2-35-159-53-89.eu-central-1.compute.amazonaws.com
+
+[test_ubuntu:vars]
+ansible_user=ubuntu
+
+[test_rh:vars]
+ansible_user=ec2-user
+
