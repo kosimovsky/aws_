@@ -1,0 +1,6 @@
+---
+- hosts: test_rh
+  become: True
+
+  tasks:
+  name: 

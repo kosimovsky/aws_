@@ -1,0 +1,8 @@
+---
+- hosts: test_ubuntu
+  become: True
+
+  tasks:
+  - name: apt update
+    apt:
+      update_cache: yes

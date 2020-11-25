@@ -9,4 +9,3 @@ ansible_user=ubuntu
 
 [test_rh:vars]
 ansible_user=ec2-user
-
