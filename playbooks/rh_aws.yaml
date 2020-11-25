@@ -3,4 +3,8 @@
   become: True
 
   tasks:
-  name: 
+  - name: Chronyd status
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: chronyd
