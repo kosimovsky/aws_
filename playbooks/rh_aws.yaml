@@ -8,3 +8,19 @@
       state: restarted
       daemon_reload: yes
       name: chronyd
+
+  - name: Install nginx
+    dnf:
+      update_cache: yes
+      name: nginx
+      state: latest
+
+  - name: Enable nginx daemon
+    systemd:
+      name: nginx
+      enabled: yes
+      state: started
+
+  - name: get current http stats
+    nginx_status_facts:
+        url: 'http://localhost/nginx_status'
