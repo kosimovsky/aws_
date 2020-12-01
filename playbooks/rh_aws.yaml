@@ -24,7 +24,7 @@
     command:
       cmd: nginx -t
       warn: yes
-      register: out
+    register: out
 
   - debug: msg="{{  out.stdout }}"
 
