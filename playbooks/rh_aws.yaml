@@ -21,6 +21,11 @@
       enabled: yes
       state: started
   - name: Check nginx configuration
-    shell: 
+    command:
       cmd: nginx -t
       warn: yes
+      register: out
+
+  - debug: msg="{{  out.stdout }}"
+
+  - debug: msg="{{ out.stderr }}"
