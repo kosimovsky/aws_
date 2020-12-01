@@ -28,10 +28,12 @@
       cmd: nginx -t
       warn: yes
 
-  - debug: STDOUT
-    msg: "{{  out.stdout }}"
-    tags: check
+  - name: STDOUT
+    debug:
+      msg: "{{  out.stdout }}"
+      tags: check
 
-  - debug: STDERR
-    msg: "{{ out.stderr }}"
-    tags: check
+  - name: STDERR
+    debug:
+      msg: "{{ out.stderr }}"
+      tags: check
