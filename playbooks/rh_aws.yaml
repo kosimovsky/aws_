@@ -20,3 +20,7 @@
       name: nginx
       enabled: yes
       state: started
+  - name: Check nginx configuration
+    shell: 
+      cmd: nginx -t
+      warn: yes
