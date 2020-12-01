@@ -28,12 +28,7 @@
       cmd: nginx -t
       warn: yes
 
-  - name: STDOUT
-    debug:
-      msg: "{{  out.stdout }}"
-      tags: check
-
-  - name: STDERR
+  - name: Nginx configuration state
+    tags: check
     debug:
       msg: "{{ out.stderr }}"
-      tags: check
