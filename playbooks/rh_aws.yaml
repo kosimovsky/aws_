@@ -32,3 +32,12 @@
     tags: check
     debug:
       msg: "{{ out.stderr }}"
+
+  - name: Create user
+      user:
+        name: kosimovsky
+        shell: /bin/bash
+        create_home: yes
+        groups: admin
+        append: yes
+        password: "$6$aQicAVs2.md4WVj$YzaehJCYlPMw6PXwGsTdasv/MqtI7UoOXrg2JB6I/nVYu8pt9suQnm1PzQ50aFjbppeSzK26GridZEhFuUYLq/"
