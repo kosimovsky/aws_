@@ -20,12 +20,18 @@
       name: nginx
       enabled: yes
       state: started
+
   - name: Check nginx configuration
+    tags: check
+    register: out
     command:
       cmd: nginx -t
       warn: yes
-    register: out
 
-  - debug: msg="{{  out.stdout }}"
+  - debug: STDOUT
+    msg: "{{  out.stdout }}"
+    tags: check
 
-  - debug: msg="{{ out.stderr }}"
+  - debug: STDERR
+    msg: "{{ out.stderr }}"
+    tags: check
