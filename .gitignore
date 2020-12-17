@@ -1,3 +1,5 @@
 hosts
 *.cfg
 *.pem
+*.crt
+*.key
