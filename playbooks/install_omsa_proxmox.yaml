@@ -1,0 +1,81 @@
+---
+- hosts: proxmox
+  become: True
+
+  tasks:
+  - name: Add an apt key for OMSA repo
+    tags: repo
+    apt_key:
+      keyserver: pool.sks-keyservers.net
+      id: 1285491434D8786F
+      state: present
+
+  - apt_repository:
+      tags: repo
+      repo: 'deb http://linux.dell.com/repo/community/openmanage/940/bionic bionic main'
+      filename: omsa.dell.repo
+      update_cache: no
+
+  - name: apt update
+    apt:
+      update_cache: yes
+
+  - name: Install dependency_1
+    apt:
+      deb: http://archive.ubuntu.com/ubuntu/pool/universe/o/openwsman/libwsman-curl-client-transport1_2.6.5-0ubuntu3_amd64.deb
+
+  - name: Install dependency_2
+    apt:
+      deb: http://archive.ubuntu.com/ubuntu/pool/universe/o/openwsman/libwsman-client4_2.6.5-0ubuntu3_amd64.deb
+
+  - name: Install dependency_3
+    apt:
+      deb: http://archive.ubuntu.com/ubuntu/pool/universe/o/openwsman/libwsman1_2.6.5-0ubuntu3_amd64.deb
+
+  - name: Install dependency_4
+    apt:
+      deb: http://archive.ubuntu.com/ubuntu/pool/universe/o/openwsman/libwsman-server1_2.6.5-0ubuntu3_amd64.deb
+
+  - name: Install dependency_5
+    apt:
+      deb: http://archive.ubuntu.com/ubuntu/pool/universe/s/sblim-sfcc/libcimcclient0_2.2.8-0ubuntu2_amd64.deb
+
+  - name: Install dependency_6
+    apt:
+      deb: http://archive.ubuntu.com/ubuntu/pool/universe/o/openwsman/openwsman_2.6.5-0ubuntu3_amd64.deb
+
+  - name: Install dependency_7
+    apt:
+      deb: http://archive.ubuntu.com/ubuntu/pool/multiverse/c/cim-schema/cim-schema_2.48.0-0ubuntu1_all.deb
+
+  - name: Install dependency_8
+    apt:
+      deb: http://archive.ubuntu.com/ubuntu/pool/universe/s/sblim-sfc-common/libsfcutil0_1.0.1-0ubuntu4_amd64.deb
+
+  - name: Install dependency_9
+    apt:
+      deb: http://archive.ubuntu.com/ubuntu/pool/multiverse/s/sblim-sfcb/sfcb_1.4.9-0ubuntu5_amd64.deb
+
+  - name: Install dependency_10
+    apt:
+      deb: http://archive.ubuntu.com/ubuntu/pool/universe/s/sblim-cmpi-devel/libcmpicppimpl0_2.0.3-0ubuntu2_amd64.deb
+
+  - name: Install libncurses5
+    apt:
+      update_cache: no
+      name: libncurses5
+      state: present
+
+  - name: Install srvadmin-all
+    apt:
+      update_cache: yes
+      name: srvadmin-all
+      state: present
+
+  - name: Touch file for server generation permission
+    file:
+      path: /opt/dell/srvadmin/lib64/openmanage/IGNORE_GENERATION
+      state: touch
+
+  - name: Start OMSA script
+    shell: '/opt/dell/srvadmin/sbin/srvadmin-services.sh start'

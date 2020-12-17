@@ -1,0 +1,48 @@
+---
+- name: Install OMSA on server with CentOS
+  hosts: test_rh
+  become: True
+  vars:
+    systemd_path: '/etc/systemd/system/dell-omsa.service'
+    omsa: 'dell-omsa'
+
+  tasks:
+  - name: Curl bootstrap.cgi
+    tags:
+    - curl
+    - install
+    uri:
+      url: http://linux.dell.com/repo/hardware/dsu/bootstrap.cgi
+      method: GET
+      return_content: yes
+      dest: /tmp
+
+  - name: Run bootstrap.cgi
+    tags:
+    - install
+    shell: "yes 'y' | bash /tmp/bootstrap.cgi"
+
+  - name: Install srvadmin-all
+    tags:
+    - install
+    yum:
+      name: srvadmin-all
+      state: present
+
+  - name: Copy systemd service file
+    tags: daemon
+    template:
+      src: 'templates/dell-omsa.service.j2'
+      dest: '{{ systemd_path }}'
+
+  - name: Systemd reload
+    tags: daemon
+    systemd:
+      daemon_reload: yes
+
+  - name: Start and enable OMSA with systemctl
+    tags: daemon
+    systemd:
+      name: '{{ omsa }}'
+      state: started
+      enabled: yes
