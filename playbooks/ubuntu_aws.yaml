@@ -40,3 +40,5 @@
         groups: sudo
         append: yes
         password: "$6$aQicAVs2.md4WVj$YzaehJCYlPMw6PXwGsTdasv/MqtI7UoOXrg2JB6I/nVYu8pt9suQnm1PzQ50aFjbppeSzK26GridZEhFuUYLq/"
+
+        # vim:ft=ansible:
